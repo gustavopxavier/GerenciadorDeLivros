@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Título"
+        android:text="Título:"
         style="?android:attr/textAppearanceMedium"
         />
 
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Autor"
+        android:text="Autor:"
         style="?android:attr/textAppearanceMedium"
         />
 
