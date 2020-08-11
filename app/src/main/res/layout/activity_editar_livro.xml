@@ -69,4 +69,31 @@
         style="?android:attr/textAppearanceMedium"
         />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:onClick="cancelar"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:onClick="processar"
+            style="?android:attr/buttonBarButtonStyle"
+            />
+
+
+    </LinearLayout>
+
 </LinearLayout>
