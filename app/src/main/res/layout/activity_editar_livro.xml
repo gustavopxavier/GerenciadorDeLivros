@@ -60,9 +60,13 @@
         />
 
     <CheckBox
-
+        android:id="@+id/check_emprestado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Emprestado?"
+        android:textStyle="bold"
+        style="?android:attr/textAppearanceMedium"
         />
 
 </LinearLayout>
