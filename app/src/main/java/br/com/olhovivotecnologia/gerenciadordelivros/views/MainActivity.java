@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import br.com.olhovivotecnologia.gerenciadordelivros.adapter.LivroAdapter;
 import br.com.olhovivotecnologia.gerenciadordelivros.data.LivroDAO;
 import br.com.olhovivotecnologia.gerenciadordelivros.dominio.Livro;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LivroAdapter.OnLivroListener {
 
     private LivroDAO livroDAO;
     LivroAdapter livroAdapter;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<Livro> listaLivros = livroDAO.list();
 
-        livroAdapter = new LivroAdapter(listaLivros, this);
+        livroAdapter = new LivroAdapter(listaLivros, this, this);
 
         recyclerView.setAdapter(livroAdapter);
 
@@ -89,5 +90,15 @@ public class MainActivity extends AppCompatActivity {
         List<Livro> livros = livroDAO.list();
         livroAdapter.setItems(livros);
         livroAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onLivroClick(int posicao) {
+        Toast.makeText(this, "onLivroClick = "+posicao, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLivroLongClick(int posicao) {
+        Toast.makeText(this, "onLivroLongClick = "+posicao, Toast.LENGTH_SHORT).show();
     }
 }

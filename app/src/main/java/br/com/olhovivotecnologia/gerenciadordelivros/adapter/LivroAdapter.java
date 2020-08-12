@@ -22,9 +22,12 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroHolder>
     private List<Livro> livros;
     private Context context;
 
-    public LivroAdapter(List<Livro> livros, Context context) {
+    private OnLivroListener onLivroListener;
+
+    public LivroAdapter(List<Livro> livros, Context context, OnLivroListener onLivroListener) {
         this.livros = livros;
         this.context = context;
+        this.onLivroListener = onLivroListener;
     }
 
     @NonNull
@@ -33,7 +36,7 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroHolder>
 
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_livro,parent,false);
-        LivroHolder livroHolder = new LivroHolder(view);
+        LivroHolder livroHolder = new LivroHolder(view,onLivroListener);
 
         return livroHolder;
     }
@@ -50,6 +53,9 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroHolder>
         if (livro.getEmprestado() == 1) {
             holder.ic_livro.setColorFilter(Color.GRAY);
             holder.ic_star.setVisibility(View.VISIBLE);
+        } else {
+            holder.ic_livro.setColorFilter(Color.parseColor("#0455BF"));
+            holder.ic_star.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -72,7 +78,9 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroHolder>
         public ImageView ic_livro;
         public ImageView ic_star;
 
-        public LivroHolder(View view) {
+        public OnLivroListener onLivroListener;
+
+        public LivroHolder(View view, OnLivroListener onLivroListener) {
             super(view);
 
             txtTitulo = view.findViewById(R.id.txtTitulo);
@@ -81,26 +89,27 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroHolder>
             ic_livro = view.findViewById(R.id.ic_livro);
             ic_star = view.findViewById(R.id.ic_star);
 
+            this.onLivroListener = onLivroListener;
+
             view.setOnClickListener(this);
             view.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            int pos = getAdapterPosition();
-            Toast.makeText(context, "Onclick "+(pos+1), Toast.LENGTH_SHORT).show();
-
+            onLivroListener.onLivroClick(getAdapterPosition());
         }
 
         @Override
         public boolean onLongClick(View view) {
-            int pos = getAdapterPosition();
-            Toast.makeText(context, "OnLongClick "+(pos+1), Toast.LENGTH_SHORT).show();
-
+            onLivroListener.onLivroLongClick(getAdapterPosition());
             return true;
         }
     }
 
-
+    public interface OnLivroListener{
+        void onLivroClick(int posicao);
+        void onLivroLongClick(int posicao);
+    }
 
 }
