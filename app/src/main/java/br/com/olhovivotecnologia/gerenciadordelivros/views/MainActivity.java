@@ -19,9 +19,10 @@ import java.util.List;
 import br.com.olhovivotecnologia.gerenciadordelivros.R;
 import br.com.olhovivotecnologia.gerenciadordelivros.adapter.LivroAdapter;
 import br.com.olhovivotecnologia.gerenciadordelivros.data.LivroDAO;
+import br.com.olhovivotecnologia.gerenciadordelivros.dialogs.DeleteDialog;
 import br.com.olhovivotecnologia.gerenciadordelivros.dominio.Livro;
 
-public class MainActivity extends AppCompatActivity implements LivroAdapter.OnLivroListener {
+public class MainActivity extends AppCompatActivity implements LivroAdapter.OnLivroListener, DeleteDialog.OnDeleteListener {
 
     private LivroDAO livroDAO;
     LivroAdapter livroAdapter;
@@ -108,6 +109,16 @@ public class MainActivity extends AppCompatActivity implements LivroAdapter.OnLi
     public void onLivroLongClick(int posicao) {
 
         Livro livro = livroAdapter.getItem(posicao);
+
+        DeleteDialog dialog = new DeleteDialog();
+        dialog.setLivro(livro);
+        dialog.show(getSupportFragmentManager(),"deleteDialog");
+
+    }
+
+    @Override
+    public void onDelete(Livro livro) {
+
         livroDAO.delete(livro);
         atualizaListaLivros();
 
