@@ -94,7 +94,10 @@ public class MainActivity extends AppCompatActivity implements LivroAdapter.OnLi
 
     @Override
     public void onLivroClick(int posicao) {
-        Toast.makeText(this, "onLivroClick = "+posicao, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(getApplicationContext(),EditarLivroActivity.class);
+        intent.putExtra("livro", livroAdapter.getItem(posicao));
+        startActivityForResult(intent, 101);
     }
 
     @Override

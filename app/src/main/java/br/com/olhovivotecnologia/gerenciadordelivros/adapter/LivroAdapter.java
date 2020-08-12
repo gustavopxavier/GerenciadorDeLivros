@@ -69,6 +69,10 @@ public class LivroAdapter extends RecyclerView.Adapter<LivroAdapter.LivroHolder>
         this.livros = livros;
     }
 
+    public Livro getItem(int posicao){
+        return livros.get(posicao);
+    }
+
     public class LivroHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
