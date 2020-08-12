@@ -84,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements LivroAdapter.OnLi
         if(requestCode == 100 && resultCode == RESULT_OK){
             atualizaListaLivros();
         }
+
+        if(requestCode == 101 && resultCode == RESULT_OK){
+            atualizaListaLivros();
+        }
     }
 
     public void atualizaListaLivros(){
@@ -102,6 +106,11 @@ public class MainActivity extends AppCompatActivity implements LivroAdapter.OnLi
 
     @Override
     public void onLivroLongClick(int posicao) {
-        Toast.makeText(this, "onLivroLongClick = "+posicao, Toast.LENGTH_SHORT).show();
+
+        Livro livro = livroAdapter.getItem(posicao);
+        livroDAO.delete(livro);
+        atualizaListaLivros();
+
+        Toast.makeText(this, "Livro excluído com sucesso!", Toast.LENGTH_SHORT).show();
     }
 }

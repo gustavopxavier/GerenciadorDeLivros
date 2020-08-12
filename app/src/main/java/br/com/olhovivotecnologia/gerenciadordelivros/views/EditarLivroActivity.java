@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import br.com.olhovivotecnologia.gerenciadordelivros.R;
 import br.com.olhovivotecnologia.gerenciadordelivros.data.LivroDAO;
@@ -57,11 +58,24 @@ public class EditarLivroActivity extends AppCompatActivity {
         String editora = edt_editora.getText().toString();
         int emprestado = (chk_emprestado.isChecked()) ? 1 : 0;
 
-        Livro livro = new Livro(titulo,autor,editora,emprestado);
+        String msg;
 
-        livroDAO.save(livro);
+        if(livro == null){
+            Livro livro = new Livro(titulo,autor,editora,emprestado);
+            livroDAO.save(livro);
+            msg = "Livro adicionado com sucesso! ID= "+livro.getId();
+        } else {
+            livro.setTitulo(titulo);
+            livro.setAutor(autor);
+            livro.setEditora(editora);
+            livro.setEmprestado(emprestado);
 
-        String msg = "Livro adicionado com sucesso! ID="+livro.getId();
+            livroDAO.update(livro);
+
+            msg = "Livro atualizado com sucesso! ID= "+livro.getId();
+        }
+
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish();
 
